@@ -36,11 +36,12 @@
  * (E-mail: <A HREF="mailto:jgomezpe@unal.edu.co">jgomezpe@unal.edu.co</A> )
  * @version 1.0
  */
-package nsgl.generic;
+package nsgl.compare;
 
 import java.lang.reflect.Method;
 
 import nsgl.cast.CastServer;
+import nsgl.generic.Comparator;
 import nsgl.generic.collection.Indexed;
 import nsgl.generic.collection.IndexedComparator;
 

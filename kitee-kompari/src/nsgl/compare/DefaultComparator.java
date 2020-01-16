@@ -36,7 +36,9 @@
  * (E-mail: <A HREF="mailto:jgomezpe@unal.edu.co">jgomezpe@unal.edu.co</A> )
  * @version 1.0
  */
-package nsgl.generic;
+package nsgl.compare;
+
+import nsgl.generic.Comparator;
 
 /**
  * <p>Title: ShallowComparator</p>

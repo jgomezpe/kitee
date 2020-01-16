@@ -37,7 +37,8 @@
  * @version 1.0
  */
 package nsgl.generic.array;
-import nsgl.generic.Comparable;
+import nsgl.compare.Comparable;
+import nsgl.generic.array.ArrayInterface;
 
 /**
  * <p>Title: ArrayComparator</p>

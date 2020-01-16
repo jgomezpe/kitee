@@ -1,8 +1,9 @@
 package nsgl.generic.collection;
 
-import nsgl.generic.Comparable;
+import nsgl.compare.Comparable;
 import nsgl.generic.Comparator;
 import nsgl.generic.Sized;
+import nsgl.generic.collection.Indexed;
 
 public class IndexedComparator  implements Comparator{
 	public boolean eq(Indexed<?,?> one, Indexed<?,?> two) {
