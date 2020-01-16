@@ -39,6 +39,7 @@
 package nsgl.compare;
 
 import nsgl.generic.Comparator;
+import nsgl.generic.array.ArrayInterface;
 
 /**
  * <p>Title: ShallowComparator</p>
@@ -47,21 +48,10 @@ import nsgl.generic.Comparator;
  *
  */
 public class DefaultComparator implements Comparator{
-	public boolean eq(Object one, Object two, int start, int end ) {
-		boolean flag = true;
-		for( int i=start; i<end && flag; i++) flag = Comparable.cast(java.lang.reflect.Array.get(one, i)).eq(java.lang.reflect.Array.get(two,i));
-		return flag;
-	}
-	
 	@Override
 	public boolean eq(Object one, Object two) {
 		if( one==two ) return true;
-		if( one.getClass().isArray() ) {
-			int n = java.lang.reflect.Array.getLength(one);
-			int m = java.lang.reflect.Array.getLength(two);
-			if(n!=m) return false;
-			return eq(one, two, 0, n);
-		}
+		if( one.getClass().isArray() ) return Comparable.comparator(ArrayInterface.class).eq(one, two);
 		return one.equals(two);
 	}
 }

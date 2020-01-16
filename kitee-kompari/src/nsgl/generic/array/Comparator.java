@@ -49,6 +49,12 @@ import nsgl.generic.array.ArrayInterface;
 public class Comparator implements nsgl.generic.Comparator{
 	public Comparator() {}
 
+	public boolean eq(Object one, Object two, int start, int end ) {
+		boolean flag = true;
+		for( int i=start; i<end && flag; i++) flag = Comparable.cast(java.lang.reflect.Array.get(one, i)).eq(java.lang.reflect.Array.get(two,i));
+		return flag;
+	}
+
 	public boolean eq(ArrayInterface<?> one, ArrayInterface<?> two, int start, int end){
 		if( one == two ) return true;
 		boolean flag = true;
@@ -59,6 +65,12 @@ public class Comparator implements nsgl.generic.Comparator{
 	@Override
 	public boolean eq(Object one, Object two) {
 		if( one==two ) return true;
+		if( one.getClass().isArray() ) {
+			int n = java.lang.reflect.Array.getLength(one);
+			int m = java.lang.reflect.Array.getLength(two);
+			if(n!=m) return false;
+			return eq(one, two, 0, n);
+		}
 		ArrayInterface<?> a1 = (ArrayInterface<?>)one;
 		ArrayInterface<?> a2 = (ArrayInterface<?>)two;
 		if( a1.size() != a2.size() ) return false;

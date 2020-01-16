@@ -42,6 +42,7 @@ import java.lang.reflect.Method;
 
 import nsgl.cast.CastServer;
 import nsgl.generic.Comparator;
+import nsgl.generic.array.ArrayInterface;
 import nsgl.generic.collection.Indexed;
 import nsgl.generic.collection.IndexedComparator;
 
@@ -73,6 +74,7 @@ public interface Comparable {
 		if( CastServer.service(Object.class,Comparable.class) != null ) return;
 		Comparable.addCast(Object.class, new DefaultComparator() );
 		Comparable.addCast(Indexed.class, new IndexedComparator());
+		Comparable.addCast(ArrayInterface.class, new nsgl.generic.array.Comparator());
 	}    
 
 	/**
