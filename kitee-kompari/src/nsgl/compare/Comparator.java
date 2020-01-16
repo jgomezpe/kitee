@@ -36,44 +36,20 @@
  * (E-mail: <A HREF="mailto:jgomezpe@unal.edu.co">jgomezpe@unal.edu.co</A> )
  * @version 1.0
  */
-package nsgl.generic.array;
-import nsgl.compare.Comparable;
-import nsgl.generic.array.ArrayInterface;
+package nsgl.compare;
 
 /**
- * <p>Title: ArrayComparator</p>
+ * <p>Title: Comparator</p>
  *
- * <p>Description: Compares two arrays to determine if they are equal or not</p>
+ * <p>Description: Compares two objects to determine if they are equal or not</p>
  *
  */
-public class Comparator implements nsgl.compare.Comparator{
-	public Comparator() {}
-
-	public boolean eq(Object one, Object two, int start, int end ) {
-		boolean flag = true;
-		for( int i=start; i<end && flag; i++) flag = Comparable.cast(java.lang.reflect.Array.get(one, i)).eq(java.lang.reflect.Array.get(two,i));
-		return flag;
-	}
-
-	public boolean eq(ArrayInterface<?> one, ArrayInterface<?> two, int start, int end){
-		if( one == two ) return true;
-		boolean flag = true;
-		for( int i=start; i<end && flag; i++) flag = Comparable.cast(one.get(i)).eq(two.get(i));
-		return flag;
-	}
-	
-	@Override
-	public boolean eq(Object one, Object two) {
-		if( one==two ) return true;
-		if( one.getClass().isArray() ) {
-			int n = java.lang.reflect.Array.getLength(one);
-			int m = java.lang.reflect.Array.getLength(two);
-			if(n!=m) return false;
-			return eq(one, two, 0, n);
-		}
-		ArrayInterface<?> a1 = (ArrayInterface<?>)one;
-		ArrayInterface<?> a2 = (ArrayInterface<?>)two;
-		if( a1.size() != a2.size() ) return false;
-		return eq( a1, a2, 0, a1.size());
-	}
+public interface Comparator{
+	/**
+     * Determines if the object one is equal to the object two
+     * @param one The first object to compare
+     * @param two The second object to compare
+     * @return (one==two)
+     */
+    public boolean eq(Object one, Object two);    
 }

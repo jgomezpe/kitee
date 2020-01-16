@@ -1,7 +1,7 @@
 package nsgl.generic.collection;
 
 import nsgl.compare.Comparable;
-import nsgl.generic.Comparator;
+import nsgl.compare.Comparator;
 import nsgl.generic.Sized;
 import nsgl.generic.collection.Indexed;
 

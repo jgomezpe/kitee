@@ -38,7 +38,6 @@
  */
 package nsgl.compare;
 
-import nsgl.generic.Comparator;
 import nsgl.generic.array.ArrayInterface;
 
 /**
