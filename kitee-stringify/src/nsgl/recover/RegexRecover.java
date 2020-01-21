@@ -83,6 +83,11 @@ public abstract class RegexRecover implements Recover{
 	 */
 	public abstract Object instance(String input) throws IOException;
 	
+	/**
+	 * Matches the regex expression with the String if possible
+	 * @param input
+	 * @return
+	 */
 	public String match(CharSequence input){
 		Matcher matcher = pattern.matcher(input); 
 		if( matcher.find() ) return matcher.group();
