@@ -83,11 +83,16 @@ public abstract class RegexRecover implements Recover{
 	 */
 	public abstract Object instance(String input) throws IOException;
 	
+	public String match(CharSequence input) throws IOException{
+		Matcher matcher = pattern.matcher(input); 
+		if( matcher.find() ) return matcher.group();
+		return null;
+	}
+	
 	@Override
 	public Object recover(CharacterSequence input) throws IOException{
-		Matcher matcher = pattern.matcher(input); 
-		if( matcher.find() ) {
-			String txt = matcher.group();
+		String txt = match(input); 
+		if( txt != null ) {
 			input.shift(txt.length());
 			return instance(txt);
 		}	
