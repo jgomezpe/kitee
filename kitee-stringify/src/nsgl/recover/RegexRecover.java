@@ -83,7 +83,7 @@ public abstract class RegexRecover implements Recover{
 	 */
 	public abstract Object instance(String input) throws IOException;
 	
-	public String match(CharSequence input) throws IOException{
+	public String match(CharSequence input){
 		Matcher matcher = pattern.matcher(input); 
 		if( matcher.find() ) return matcher.group();
 		return null;
@@ -95,8 +95,7 @@ public abstract class RegexRecover implements Recover{
 		if( txt != null ) {
 			input.shift(txt.length());
 			return instance(txt);
-		}	
-		// @TODO: Deal with exception.
-		throw new IOException();
+		}
+		return null;
 	}
 }
