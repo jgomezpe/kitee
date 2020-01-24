@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="cast-src"/>
+	<classpathentry kind="src" path="stringify-src"/>
+	<classpathentry kind="src" path="spuro-src"/>
+	<classpathentry kind="src" path="kopii-src"/>
+	<classpathentry kind="src" path="kompari-src"/>
+	<classpathentry kind="src" path="io-src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="lib" path="/home/jgomez/git/speco/speco-lib/lib/array.jar"/>
+	<classpathentry kind="lib" path="/home/jgomez/git/speco/speco-lib/lib/hash.jar"/>
+	<classpathentry kind="lib" path="/home/jgomez/git/speco/speco-lib/lib/kerno.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
