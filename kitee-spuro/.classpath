@@ -2,10 +2,10 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="/home/jgomez/git/speco/speco-lib/lib/array.jar"/>
-	<classpathentry kind="lib" path="/home/jgomez/git/speco/speco-lib/lib/kerno.jar"/>
-	<classpathentry kind="lib" path="/home/jgomez/git/kitee/kitee-lib/lib/cast.jar"/>
-	<classpathentry kind="lib" path="/home/jgomez/git/kitee/kitee-lib/lib/io.jar"/>
-	<classpathentry kind="lib" path="/home/jgomez/git/kitee/kitee-lib/lib/stringify.jar"/>
+	<classpathentry kind="lib" path="/home/jgomez/git/kitee/kitee-lib/cast.jar"/>
+	<classpathentry kind="lib" path="/home/jgomez/git/kitee/kitee-lib/io.jar"/>
+	<classpathentry kind="lib" path="/home/jgomez/git/kitee/kitee-lib/stringify.jar"/>
+	<classpathentry kind="lib" path="/home/jgomez/git/speco/speco-lib/array.jar"/>
+	<classpathentry kind="lib" path="/home/jgomez/git/speco/speco-lib/kerno.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
