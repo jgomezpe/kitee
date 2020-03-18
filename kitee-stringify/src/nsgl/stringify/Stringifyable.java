@@ -44,7 +44,7 @@ import java.lang.reflect.Method;
 import java.nio.charset.Charset;
 
 import nsgl.cast.CastServer;
-import nsgl.generic.array.ArrayInterface;
+import nsgl.generic.array.Array;
 import nsgl.generic.collection.Indexed;
 import nsgl.generic.collection.IndexedStringifier;
 
@@ -80,7 +80,7 @@ public interface Stringifyable {
 		CastServer.setService(Object.class, Stringifyable.class, new DefaultStringifier());
 		Stringifyable.addCast(Character.class, new nsgl.character.Stringifier()); 
 		Stringifyable.addCast(String.class, new nsgl.string.Stringifier()); 
-		Stringifyable.addCast(ArrayInterface.class, new nsgl.generic.array.Stringifier());
+		Stringifyable.addCast(Array.class, new nsgl.generic.array.Stringifier());
 		Stringifyable.addCast(Indexed.class, new IndexedStringifier());
 	}	
 	

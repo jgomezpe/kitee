@@ -38,7 +38,7 @@
  */
 package nsgl.generic.array;
 import nsgl.compare.Comparable;
-import nsgl.generic.array.ArrayInterface;
+import nsgl.generic.array.Array;
 
 /**
  * <p>Title: ArrayComparator</p>
@@ -55,7 +55,7 @@ public class Comparator implements nsgl.compare.Comparator{
 		return flag;
 	}
 
-	public boolean eq(ArrayInterface<?> one, ArrayInterface<?> two, int start, int end){
+	public boolean eq(Array<?> one, Array<?> two, int start, int end){
 		if( one == two ) return true;
 		boolean flag = true;
 		for( int i=start; i<end && flag; i++) flag = Comparable.cast(one.get(i)).eq(two.get(i));
@@ -71,8 +71,8 @@ public class Comparator implements nsgl.compare.Comparator{
 			if(n!=m) return false;
 			return eq(one, two, 0, n);
 		}
-		ArrayInterface<?> a1 = (ArrayInterface<?>)one;
-		ArrayInterface<?> a2 = (ArrayInterface<?>)two;
+		Array<?> a1 = (Array<?>)one;
+		Array<?> a2 = (Array<?>)two;
 		if( a1.size() != a2.size() ) return false;
 		return eq( a1, a2, 0, a1.size());
 	}

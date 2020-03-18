@@ -42,7 +42,7 @@ package nsgl.trace;
 import java.io.IOException;
 
 import nsgl.cast.CastServer;
-import nsgl.generic.array.DynArray;
+import nsgl.generic.array.Vector;
 /**
  * <p>Title: Traceable</p>
  *
@@ -51,7 +51,7 @@ import nsgl.generic.array.DynArray;
  */
 
 public class Traceable {
-	protected DynArray<Tracer> tracers = new DynArray<Tracer>();
+	protected Vector<Tracer> tracers = new Vector<Tracer>();
 	protected boolean tracing = false;
 	protected Object caller;
 	

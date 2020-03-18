@@ -38,7 +38,7 @@
  */
 package nsgl.stringify;
 
-import nsgl.generic.array.ArrayInterface;
+import nsgl.generic.array.Array;
 
 /**
  * <p>Title: ShallowStringifier</p>
@@ -49,7 +49,7 @@ import nsgl.generic.array.ArrayInterface;
 public class DefaultStringifier implements Stringifier{
 	@Override
 	public String stringify(Object obj) {
-		if( obj.getClass().isArray() ) return Stringifyable.stringifier(ArrayInterface.class).stringify(obj);
+		if( obj.getClass().isArray() ) return Stringifyable.stringifier(Array.class).stringify(obj);
 		return obj.toString(); 
 	}
 }

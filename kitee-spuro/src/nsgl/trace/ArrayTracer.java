@@ -1,11 +1,11 @@
 package nsgl.trace;
-import nsgl.generic.array.DynArray;
+import nsgl.generic.array.Vector;
 
 public class ArrayTracer implements Tracer {
 	/**
 	 * Traced information
 	 */
-	private DynArray<Object[]> object = new DynArray<Object[]>();
+	private Vector<Object[]> object = new Vector<Object[]>();
 	
 	private int each=1;
 	private int count = 0;

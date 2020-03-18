@@ -38,7 +38,7 @@
  */
 package nsgl.character;
 
-import nsgl.integer.array.DynArray;
+import nsgl.generic.array.Vector;
 
 /**
  * <p>Title: CharacterSequence</p>
@@ -62,7 +62,7 @@ public class CharacterSequence implements CharSequence{
 	 * <p>Description: Helper class for tracking the position (row,column) of characters in the CharSequence</p>
 	 *
 	 */
-	protected class Rows extends DynArray{
+	protected class Rows extends Vector<Integer>{
 		/**
 		 * Gets the absolute position of the last found row 
 		 * @return Absolute position of the last found row
