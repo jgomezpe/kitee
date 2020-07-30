@@ -46,8 +46,5 @@ public class ArrayTracer implements Tracer {
 	public void close() {};
 	
 	@Override
-	public String toString(){ return "VectorTracer"; }
-
-	@Override
 	public void clear() { object.clear(); }	
 }

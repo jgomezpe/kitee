@@ -3,7 +3,6 @@ package nsgl.generic.collection;
 import nsgl.compare.Comparable;
 import nsgl.compare.Comparator;
 import nsgl.generic.Sized;
-import nsgl.generic.collection.Indexed;
 
 public class IndexedComparator  implements Comparator{
 	public boolean eq(Indexed<?,?> one, Indexed<?,?> two) {

@@ -2,8 +2,6 @@ package nsgl.real.matrix;
 
 import java.io.*;
 
-import nsgl.exception.IO;
-
 /**
  * <p>Title: DoubleMatrixSimplePersistent </p>
  * <p>Description: A double matrix persistent method that uses a given charater for separating the matrix values</p>
@@ -39,8 +37,7 @@ public class PlainWrite implements Write{
      * @throws ParamsException ParamsException
      */
     public void write( double[][] obj, Writer out) throws IOException {
-        try{
-	        int n = obj.length;
+ 	        int n = obj.length;
 	        int m = (n>0)?obj[0].length:0;
 	        out.write(n);
 	        out.write(separator);
@@ -52,8 +49,7 @@ public class PlainWrite implements Write{
 	                out.write("" + obj[i][j]);
 	            }
 	        }
-    	}catch(IOException e){ throw IO.exception(IO.OTHER, e.getMessage()); }
-    }
+   }
     
 	@Override
 	public String toString(){ return "DoubleMatrixPlainWrite"; }	    

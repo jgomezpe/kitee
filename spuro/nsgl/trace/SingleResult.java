@@ -80,7 +80,4 @@ public class SingleResult implements Tracer{
 	 * Closes the tracer (does nothing)
 	 */
 	public void close() {};
-	
-	@Override
-	public String toString(){ return "SingleResultTracer"; }	
 }

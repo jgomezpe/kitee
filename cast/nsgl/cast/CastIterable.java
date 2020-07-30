@@ -65,6 +65,10 @@ public abstract class CastIterable<S,T> implements Iterable<T>{
 	 */
 	protected abstract T cast( S x );
     
+	/**
+	 * Gets an iterator over the casted objects
+	 * @return An iterator of casted versions of the original collection
+	 */
 	@Override
 	public Iterator<T> iterator(){ 
 		Iterator<S> iter = col.iterator();

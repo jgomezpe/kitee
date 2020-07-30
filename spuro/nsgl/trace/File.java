@@ -102,7 +102,7 @@ public class File extends OutputStream{
 	/**
 	 * Closes the associated file
 	 */
-	public void close(){ try{	file.close(); } catch (IOException e) { e.printStackTrace(); } }
+	public void close(){ try{ file.close(); } catch (IOException e) { e.printStackTrace(); } }
 
 	/**
 	 * Cleans the traced information
@@ -111,7 +111,4 @@ public class File extends OutputStream{
 		close();
 		try { file = new FileWriter(fileName); } catch (IOException e) { e.printStackTrace(); }
 	}
-	
-	@Override
-	public String toString(){ return "FileTracer"; }	
 }

@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.charset.Charset;
 
 public class IOUtil {
@@ -23,6 +24,17 @@ public class IOUtil {
 		}while(k>0);
 		return os;
 	}
+	
+	public static int write(InputStream is, OutputStream os) throws java.io.IOException {
+		int c=0;
+		byte[] buffer = new byte[100000];
+		int s;
+		while( (s=is.read(buffer))>=0 ) {
+			c += s;
+			os.write(buffer, 0, s);
+		}
+		return c;		
+	}	
 
 	public static byte[] toByteArray( InputStream is ) throws IOException{ return toByteArrayOS(is).toByteArray(); }
 		

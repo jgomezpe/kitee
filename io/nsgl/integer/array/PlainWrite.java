@@ -2,9 +2,6 @@ package nsgl.integer.array;
 
 import java.io.*;
 
-import nsgl.exception.IO;
-
-
 /**
  * <p>Integer array persistent method that uses a given character for separating the array values</p>
  *
@@ -60,7 +57,7 @@ public class PlainWrite implements Write{
             sb.append(separator);
             sb.append(obj[i]);
         }
-        try{ out.write(sb.toString()); }catch(IOException e){ throw IO.exception(IO.OTHER, e.getMessage()); }
+        out.write(sb.toString());
     }
     
 	@Override

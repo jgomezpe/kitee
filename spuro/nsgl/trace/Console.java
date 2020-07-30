@@ -100,8 +100,5 @@ public class Console extends OutputStream {
 	 * Closes the console (does nothing)
 	 */
 	@Override
-	public void close(){}
-	
-	@Override
-	public String toString(){ return "ConsoleTracer"; }
+	public void close(){}	
 }

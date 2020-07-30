@@ -39,25 +39,39 @@
 package nsgl.generic.collection;
 
 /**
- * <p>Title: HashMapStringifier</p>
+ * <p>Title: IndexedStringifier</p>
  *
- * <p>Description: Stringify method for HashMaps.</p>
+ * <p>Description: Stringify method for Indexed collections.</p>
  *
  */
 public class IndexedStringifier implements nsgl.stringify.Stringifier{
+	protected char OPEN = '{';
+	protected char CLOSE = '}';
+	protected char SEPARATOR = ',';
+	protected char ASSIGN = ':';
+	
+	public IndexedStringifier() {}
+	
+	public IndexedStringifier( char open, char close, char separator, char assign ) {
+	    this.CLOSE = close;
+	    this.OPEN = open;
+	    this.SEPARATOR = separator;
+	    this.ASSIGN = assign;
+	}
+	
 	public String stringify(Indexed<?,?> map) {
 		StringBuilder sb = new StringBuilder();
 		boolean flag = false;
-		sb.append('{');
+		if( OPEN != '\0' ) sb.append(OPEN);
 		for( Object k : map.locations() ) {
-			if( flag ) sb.append(',');
+			if( flag ) sb.append(SEPARATOR);
 			Object v = map.obtain(k);
 			sb.append(nsgl.stringify.Stringifier.apply(k));
-			sb.append(':');
+			sb.append(ASSIGN);
 			sb.append(nsgl.stringify.Stringifier.apply(v));
 			flag = true;
 		}
-		sb.append('}');
+		if( CLOSE != '\0' ) sb.append(CLOSE);
 		return sb.toString();
 	}
 

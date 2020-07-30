@@ -2,8 +2,6 @@ package nsgl.real.array;
 
 import java.io.*;
 
-import nsgl.exception.IO;
-
 /**
  * <p>Title: DoubleArraySimplePersistent </p>
  * <p>Description: A double array persistent method that uses a given charater for separating the array values</p>
@@ -70,7 +68,7 @@ public class PlainWrite implements Write {
             sb.append(separator);
             sb.append(obj[i]);
         }
-        try{ out.write(sb.toString()); }catch(IOException e){ throw IO.exception(IO.OTHER, e.getMessage()); }
+        out.write(sb.toString()); 
     }
     
 	@Override

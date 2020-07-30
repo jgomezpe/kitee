@@ -45,6 +45,18 @@ package nsgl.generic.array;
  *
  */
 public class Stringifier implements nsgl.stringify.Stringifier{
+	protected char OPEN = '[';
+	protected char CLOSE = ']';
+	protected char SEPARATOR = ',';
+	
+	public Stringifier() {}
+	
+	public Stringifier( char open, char close, char separator ) {
+	    this.CLOSE = close;
+	    this.OPEN = open;
+	    this.SEPARATOR = separator;
+	}
+	
 	/**
 	 * Stringifies a portion of an array
 	 * @param array Array to be stringified
@@ -57,14 +69,14 @@ public class Stringifier implements nsgl.stringify.Stringifier{
 		start = Math.max(0, start);
 		end = Math.min(end, n);
 		StringBuilder sb = new StringBuilder();
-		sb.append('[');
+		if( OPEN != '\0' ) sb.append(OPEN);
 		boolean flag = false;
 		for( int i=0; i<n; i++ ){
-			if( flag ) sb.append(',');
+			if( flag ) sb.append(SEPARATOR);
 			sb.append(nsgl.stringify.Stringifier.apply(java.lang.reflect.Array.get(array,i)));
 			flag = true;			
 		}	
-		sb.append(']');
+		if( CLOSE != '\0' ) sb.append(CLOSE);
 		return sb.toString();	
 	}
 	

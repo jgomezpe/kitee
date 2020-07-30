@@ -38,6 +38,11 @@
  */
 package nsgl.character;
 
+import java.io.DataInputStream;
+import java.io.EOFException;
+import java.io.IOException;
+import java.io.InputStream;
+
 import nsgl.generic.array.Vector;
 
 /**
@@ -47,15 +52,6 @@ import nsgl.generic.array.Vector;
  *
  */
 public class CharacterSequence implements CharSequence{
-	/**
-	 * Initial position  of the CharSequence in the inner CharSequence
-	 */
-	protected int loc;
-	/**
-	 * Inner CharSequence
-	 */
-	protected CharSequence str;
-
 	/**
 	 * <p>Title: Rows</p>
 	 *
@@ -91,7 +87,10 @@ public class CharacterSequence implements CharSequence{
 		 * Creates the helper array for tracking row start positions
 		 */
 		public Rows(){ super(); add(0); }
-	}; 
+	};
+	
+	///////////////////////////////////////////
+	public static final String NONE = "";
 	
 	/**
 	 * Array with the absolute row start positions  
@@ -99,10 +98,54 @@ public class CharacterSequence implements CharSequence{
 	protected Rows rows = new Rows(); 
 	
 	/**
+	 * Initial position  of the CharSequence in the inner CharSequence
+	 */
+	protected int loc;
+
+	/**
+	 * Inner CharSequence
+	 */
+	protected CharSequence str;
+	
+	/**
+	 * CharSequence Description
+	 */
+	protected String description = NONE;
+
+	/**
 	 * Creates a CharacterSequence over the given CharSequence
 	 * @param str CharSequence that will be wrapped by the CharSequence
 	 */
 	public CharacterSequence(CharSequence str){ this.str = str; }
+	
+	public CharacterSequence(InputStream is, char eoi) throws IOException{
+	    DataInputStream data = new DataInputStream(is);
+	    StringBuilder sb = new StringBuilder();
+	    try {
+		char c;
+		while( (c=data.readChar()) != eoi ) sb.append(c);
+	    }catch(EOFException e) {}
+	    str = sb.toString();
+	}
+	
+	public CharacterSequence(InputStream is) throws IOException{ this(is, '\0'); }
+	
+	public CharacterSequence(InputStream is, char eoi, String description) throws IOException{
+	    this(is,eoi);
+	    this.description = description;
+	}
+	
+	public CharacterSequence(InputStream is, String description) throws IOException{ this(is,'\0',description); }
+	
+	/**
+	 * Creates a CharacterSequence over the given CharSequence
+	 * @param str CharSequence that will be wrapped by the CharSequence
+	 * @param description Description of the CharSequence
+	 */
+	public CharacterSequence(CharSequence str, String description){
+	    this.str = str; 
+	    this.description = description; 
+	}
 	
 	/**
 	 * Computes the rows information up to the given character absolute index 
@@ -173,7 +216,8 @@ public class CharacterSequence implements CharSequence{
 		checkpos(p);
 		return rows.pos(p);
 	}
-
+	
+	public String description() { return description; }
 
 	@Override
 	public CharSequence subSequence(int start, int end){
@@ -183,4 +227,12 @@ public class CharacterSequence implements CharSequence{
 	
 	@Override
 	public String toString() { return str.subSequence(loc, str.length()).toString(); }
+	
+	public IOException exception( String code, int pos ) {
+		return exception(code, this.absolute_pos(pos), this.description());
+	}
+
+	public static IOException exception( String code, int[] pos, String owner ) {
+		return new IOException(owner+"["+pos[0]+","+pos[1]+"]: "+code);
+	}
 }

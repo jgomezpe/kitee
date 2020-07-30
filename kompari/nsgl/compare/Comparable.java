@@ -41,7 +41,6 @@ package nsgl.compare;
 import java.lang.reflect.Method;
 
 import nsgl.cast.CastServer;
-import nsgl.compare.Comparator;
 import nsgl.generic.array.Array;
 import nsgl.generic.collection.Indexed;
 import nsgl.generic.collection.IndexedComparator;
