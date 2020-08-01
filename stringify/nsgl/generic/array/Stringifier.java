@@ -73,7 +73,9 @@ public class Stringifier implements nsgl.stringify.Stringifier{
 		boolean flag = false;
 		for( int i=0; i<n; i++ ){
 			if( flag ) sb.append(SEPARATOR);
-			sb.append(nsgl.stringify.Stringifier.apply(java.lang.reflect.Array.get(array,i)));
+			String x = nsgl.stringify.Stringifier.apply(java.lang.reflect.Array.get(array,i));
+			if( x==null ) return null;
+			sb.append(x);
 			flag = true;			
 		}	
 		if( CLOSE != '\0' ) sb.append(CLOSE);

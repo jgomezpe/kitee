@@ -38,8 +38,6 @@
  */
 package nsgl.stringify;
 
-import nsgl.generic.array.Array;
-
 /**
  * <p>Title: ShallowStringifier</p>
  *
@@ -48,8 +46,5 @@ import nsgl.generic.array.Array;
  */
 public class DefaultStringifier implements Stringifier{
 	@Override
-	public String stringify(Object obj) {
-		if( obj.getClass().isArray() ) return Stringifyable.stringifier(Array.class).stringify(obj);
-		return obj.toString(); 
-	}
+	public String stringify(Object obj) { return obj.toString(); }
 }

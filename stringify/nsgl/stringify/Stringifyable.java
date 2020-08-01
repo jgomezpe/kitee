@@ -76,8 +76,11 @@ public interface Stringifyable {
 	 * Initializes default comparison methods
 	 */
 	static void init() {
-		if( (Stringifier)CastServer.service(Object.class,Stringifyable.class) != null ) return;
-		CastServer.setService(Object.class, Stringifyable.class, new DefaultStringifier());
+		if( (Stringifier)CastServer.service(Integer.class,Stringifyable.class) != null ) return;
+		DefaultStringifier d = new DefaultStringifier();
+		CastServer.setService(Integer.class, Stringifyable.class, d); 
+		Stringifyable.addCast(Double.class, d); 
+		Stringifyable.addCast(Boolean.class, d); 
 		Stringifyable.addCast(Character.class, new nsgl.character.Stringifier()); 
 		Stringifyable.addCast(String.class, new nsgl.string.Stringifier()); 
 		Stringifyable.addCast(Array.class, new nsgl.generic.array.Stringifier());
@@ -92,8 +95,9 @@ public interface Stringifyable {
 	 */
 	static Stringifier stringifier(Object obj) {
 		Stringifyable.init();
+		if( obj.getClass().isArray() ) return (Stringifier)CastServer.service(Array.class, Stringifyable.class);
 		Stringifier cast = (Stringifier)CastServer.service(obj, Stringifyable.class); 
-		if( cast instanceof DefaultStringifier ) {
+		if( cast == null ) {
 			try{
 				Class<?> cl = obj.getClass();
 				Method method = cl.getMethod("stringify");

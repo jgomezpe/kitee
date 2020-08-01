@@ -57,5 +57,9 @@ public interface Stringifier {
 	 * @param obj Object to be stringified
 	 * @return An stringified version of the object
 	 */
-	static String apply( Object obj ){ return Stringifyable.cast(obj).stringify();}	
+	static String apply( Object obj ){
+	    Stringifyable s = Stringifyable.cast(obj);
+	    if( s!=null ) return s.stringify();
+	    else return null;
+	}	
 }

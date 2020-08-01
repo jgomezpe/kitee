@@ -15,6 +15,7 @@ public class IOUtil {
 
 	public static ByteArrayOutputStream toByteArrayOS( InputStream is ) throws IOException{
 		ByteArrayOutputStream os = new ByteArrayOutputStream();
+		if( is==null ) return os;
 		int MAX = 1000000;
 		int k=0;
 		byte[] buffer = new byte[MAX];  
@@ -22,10 +23,12 @@ public class IOUtil {
 			k=is.read(buffer);
 			if( k>0 ) os.write(buffer, 0, k);
 		}while(k>0);
+		os.flush();
 		return os;
 	}
 	
 	public static int write(InputStream is, OutputStream os) throws java.io.IOException {
+		if( is==null ) return 0;
 		int c=0;
 		byte[] buffer = new byte[100000];
 		int s;
@@ -33,6 +36,7 @@ public class IOUtil {
 			c += s;
 			os.write(buffer, 0, s);
 		}
+		os.flush();
 		return c;		
 	}	
 
