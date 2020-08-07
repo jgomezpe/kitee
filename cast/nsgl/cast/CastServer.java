@@ -38,7 +38,7 @@
  */
 package nsgl.cast;
 
-import java.util.HashMap;
+import nsgl.generic.hashmap.HashMap;
 
 /**
  * <p>Title: Cast</p>
@@ -67,9 +67,9 @@ public class CastServer{
 		HashMap<Object, Object> map = pool.get(target);
 		if( map == null ){
 			map = new HashMap<Object, Object>();
-			pool.put(target, map);
+			pool.set(target, map);
 		}
-		map.put(caller, service);
+		map.set(caller, service);
 		Class<?> cl = target.getSuperclass(); 
 		if( cl != null && cl!=Object.class ) setService(caller,cl, service);
 		Class<?>[] superTypes = target.getInterfaces();

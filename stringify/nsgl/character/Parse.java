@@ -49,21 +49,12 @@ import nsgl.parse.Regex;
  *
  */
 public class Parse extends Regex{
-	protected static final String quotation = "'";
-	protected static final String other = "[^\\\\"+quotation+"]";
-	protected static final String hexa = "[0-9A-F]";
-	protected static final String hexacode = hexa+"{4}";
-	protected static final String unicode = "u"+hexacode;
-	protected static final String code = "[\\\\"+quotation+"/bfnrt0]";
-	protected static final String escape = "\\\\("+code+"|"+unicode+")";
-	protected static final String any = "(" + other + "|" + escape + ")";
-	
 	public static final String TAG = "char";
 
 	/**
 	 * Creates a Char recover method 
 	 */
-	public Parse(){ super(quotation+any+quotation, TAG); }
+	public Parse(){ super("'([^\\\\\"\n\t\r]|\\\\[bfnrt0'\\\\\\\\]|\\\\u[0-9A-F]{4})'" , TAG); }
 
 	/**
 	 * Obtains the character associated with a escape character 
@@ -72,7 +63,6 @@ public class Parse extends Regex{
 	 */
 	public static char escape( char c ){
 		switch( c ){
-			case '\'': case '\\': case '/': return c;
 			case 'b': return '\b';
 			case 'f': return '\f';
 			case 'n': return '\n';
@@ -90,15 +80,16 @@ public class Parse extends Regex{
 	 * @return Set of characters processed by the Char recover method
 	 * @throws IOException If the process finds an error in the process (bad formed escape character)
 	 */
-	public static char[] get( CharacterSequence input, int pos ) throws IOException{
+	public static char[] get( CharacterSequence input, int pos, boolean single ) throws IOException{
 		char c = input.charAt(pos);
 		if(c=='\\'){
 			pos++;
 			c = input.charAt(pos);
 			char ec = escape(c);
 			if( ec!=c ) return new char[]{ec, '2'};
-			if( c=='"' ) return new char[]{'"', '2'};
-			if( c=='\'' ) return new char[]{'\'', '2'};
+			if( c=='"' && !single ) return new char[]{'"', '2'};
+			if( c=='\'' && single ) return new char[]{'\'', '2'};
+			if( c=='\\' ) return new char[]{'\\', '2'};
 			if(c=='u'){
 				pos++;
 				String uc = input.subSequence(pos,pos+4).toString();
@@ -113,13 +104,13 @@ public class Parse extends Regex{
 
 	@Override
 	protected Object instance(CharacterSequence input, String matched) throws IOException{
-		char[] c = get( input, 1 );
+		char[] c = get( input, 1, true );
 		return c[0];
 	}
 	
 	public static void main( String[] args ) {
 	    Parse p = new Parse();
-	    CharacterSequence txt = new CharacterSequence("''");
+	    CharacterSequence txt = new CharacterSequence("'\\''");
 	    try {
 		Object c = p.parse(txt);
 		System.out.println(c);

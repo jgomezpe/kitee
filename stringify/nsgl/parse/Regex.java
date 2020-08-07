@@ -80,6 +80,13 @@ public abstract class Regex implements Parse{
 	public String regex(){ return regex; }
 	
 	public String type() { return type; }
+	
+	public static String escapechars() { return "<>()[]{}\\^-=$!|?*+."; }
+	public static boolean escapechar(char c) { return escapechars().indexOf(c)>=0; }
+	public static String encode(char c) {
+	    if(escapechar(c)) return "\\"+c;
+	    return ""+c;
+	}
 
 	/**
 	 * Recovers an object from the given String 
@@ -108,6 +115,6 @@ public abstract class Regex implements Parse{
 			input.shift(matched.length());
 			return obj;
 		}
-		throw input.exception("Invalid "+type, 0);
+		throw input.exception("·Invalid "+type+"·", 0);
 	}
 }

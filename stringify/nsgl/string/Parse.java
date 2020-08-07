@@ -50,21 +50,12 @@ import nsgl.parse.Regex;
  *
  */
 public class Parse extends Regex{
-	protected static final String quotation = "\"";
-	protected static final String other = "[^\\\\"+quotation+"]";
-	protected static final String hexa = "[0-9A-F]";
-	protected static final String hexacode = hexa+"{4}";
-	protected static final String unicode = "u"+hexacode;
-	protected static final String code = "[\\\\"+quotation+"/bfnrt]";
-	protected static final String escape = "\\\\("+code+"|"+unicode+")";
-	protected static final String any = "(" + other + "|" + escape + ")";
-	
 	public static final String TAG = "String";
 
 	/**
 	 * Creates a recovering method for strings
 	 */
-	public Parse() { super(quotation+any+"*"+quotation, TAG); }
+	public Parse() { super("\"([^\\\\\"\n\t\r]|\\\\[bfnrt0\"\\\\]|\\\\u[0-9A-F]{4})*\"", TAG); }
 
 	@Override
 	protected Object instance(CharacterSequence input, String matched) throws IOException{
@@ -72,22 +63,10 @@ public class Parse extends Regex{
 		int n = matched.length()-1;
 		int pos = 1;
 		while(pos<n) {
-			char[] c = nsgl.character.Parse.get(input, pos);
+			char[] c = nsgl.character.Parse.get(input, pos, false);
 			sb.append(c[0]);
 			pos += (int)(c[1]-'0');
 		}
 		return sb.toString();
-	}
-	
-	public static void main( String[] args ) {
-	    Parse p = new Parse();
-	    CharacterSequence txt = new CharacterSequence("\"Domino \\n\n Player\"");
-	    try {
-		Object c = p.parse(txt);
-		System.out.println(c);
-	    } catch (IOException e) {
-		e.printStackTrace();
-	    }
-	}
-	
+	}	
 }

@@ -38,6 +38,7 @@
  */
 package nsgl.copy;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Method;
 
 import nsgl.cast.CastServer;
@@ -56,29 +57,13 @@ public interface Copyable {
 	Object copy();	
 	
 	/**
-	 * Initializes default cloning methods
-	 */
-	static void init() {
-		if( (Copier)CastServer.service(Object.class,Copyable.class) != null ) return;
-		Copyable.addCast(Object.class, new ShallowCopier());
-		Copyable.addCast( boolean[].class, new Copier() { @Override public Object copy(Object obj) { return ((boolean[])obj).clone(); } } );
-		Copyable.addCast( int[].class, new Copier() { @Override public Object copy(Object obj) { return ((int[])obj).clone(); } } );
-		Copyable.addCast( double[].class, new Copier() { @Override public Object copy(Object obj) { return ((double[])obj).clone(); } } );
-		Copyable.addCast( long[].class, new Copier() { @Override public Object copy(Object obj) { return ((long[])obj).clone(); } } );
-		Copyable.addCast( char[].class, new Copier() { @Override public Object copy(Object obj) { return ((char[])obj).clone(); } } );
-		Copyable.addCast( short[].class, new Copier() { @Override public Object copy(Object obj) { return ((short[])obj).clone(); } } );
-		Copyable.addCast( byte[].class, new Copier() { @Override public Object copy(Object obj) { return ((byte[])obj).clone(); } } );
-	}
-	
-	/**
 	 * Obtains a cloner method for the given object
 	 * @param obj Object that will get its cloning method
 	 * @return A cloner method for the given object
 	 */
 	static Copier copier( Object obj ){
-		Copyable.init();
 		Copier cast = (Copier)CastServer.service(obj,Copyable.class);
-		if( cast instanceof ShallowCopier ){
+		if( cast == null ){
 			try{
 				Class<?> cl = obj.getClass();
 				Method method = cl.getMethod("clone");
@@ -103,11 +88,39 @@ public interface Copyable {
 	static Copyable cast( Object obj ){
 		if(obj==null) return null;
 		if( obj instanceof Copyable ) return (Copyable)obj;
+		Class<?> c = obj.getClass();
+		if( c.isArray() ) {
+			return new Copyable() {
+			    @Override
+			    public Object copy() {
+			    	int n = Array.getLength(obj);
+				Object clone = Array.newInstance(c.getComponentType(), n);
+				if( c.getComponentType().isPrimitive() )
+				    System.arraycopy(obj, 0, clone, 0, n);
+				else 
+				    for( int i=0; i<n; i++ ) Array.set(clone, i, cast(Array.get(obj, i)).copy());
+				return clone;
+			    }
+			};
+		}
+		if( c.isPrimitive() || obj instanceof Number || obj instanceof Character || obj instanceof String ) {
+		    return new Copyable() {
+		        @Override
+		        public Object copy() {
+		            return obj;
+		        }
+		    };
+		}
+		
 		Copier cast = copier(obj);
-		return new Copyable() {
-			@Override 
-			public Object copy(){ return cast.copy(obj); } 
-		};
+		if( cast != null ) {
+        		return new Copyable() {
+        			@Override 
+        			public Object copy(){ return cast.copy(obj); } 
+        		};
+		}
+		
+		return null;
 	}
 	
 	/**

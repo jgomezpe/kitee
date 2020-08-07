@@ -77,6 +77,7 @@ public interface Parseable {
 		Parseable.addCast(Character.class, new nsgl.character.Parse()); 
 		Parseable.addCast(Integer.class, new nsgl.integer.Parse()); 
 		Parseable.addCast(Double.class, new nsgl.real.Parse());
+		Parseable.addCast(byte[].class, new nsgl.blob.Parse());
 	}
 	
 	/**

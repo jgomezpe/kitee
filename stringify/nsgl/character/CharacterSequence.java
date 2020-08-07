@@ -233,6 +233,6 @@ public class CharacterSequence implements CharSequence{
 	}
 
 	public static IOException exception( String code, int[] pos, String owner ) {
-		return new IOException(owner+"["+pos[0]+","+pos[1]+"]: "+code);
+		return new IOException(owner+"["+(pos[0]+1)+","+(pos[1]+1)+"]: "+code);
 	}
 }

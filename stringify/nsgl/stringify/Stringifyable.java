@@ -85,6 +85,7 @@ public interface Stringifyable {
 		Stringifyable.addCast(String.class, new nsgl.string.Stringifier()); 
 		Stringifyable.addCast(Array.class, new nsgl.generic.array.Stringifier());
 		Stringifyable.addCast(Indexed.class, new IndexedStringifier());
+		Stringifyable.addCast(byte[].class, new nsgl.blob.Stringifier());
 	}	
 	
 
@@ -95,9 +96,9 @@ public interface Stringifyable {
 	 */
 	static Stringifier stringifier(Object obj) {
 		Stringifyable.init();
-		if( obj.getClass().isArray() ) return (Stringifier)CastServer.service(Array.class, Stringifyable.class);
 		Stringifier cast = (Stringifier)CastServer.service(obj, Stringifyable.class); 
 		if( cast == null ) {
+			if( obj.getClass().isArray() ) return (Stringifier)CastServer.service(Array.class, Stringifyable.class);
 			try{
 				Class<?> cl = obj.getClass();
 				Method method = cl.getMethod("stringify");
