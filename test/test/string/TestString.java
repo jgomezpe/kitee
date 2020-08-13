@@ -58,6 +58,7 @@ public class TestString {
 	
 	public static void parse( String s) {
 	    System.out.println("==========Parse an string==============");
+	    System.out.println(s);
 	    Parse p = new Parse();
 	    CharacterSequence txt = new CharacterSequence(s);
 	    try {
@@ -66,7 +67,7 @@ public class TestString {
 		System.out.println(c);
 		System.out.println(Stringifyable.cast(c).stringify());
 	    } catch (IOException e) {
-		System.err.println(I18N.process(e.getMessage()));
+		System.err.println(I18N.process(e.getMessage())+":"+s);
 	    }
 	}
 		
@@ -75,7 +76,7 @@ public class TestString {
 	    template(); // Uncomment to test template
 	    i18n(); // Uncomment to test demo Spanish dictionary for i18n 
 	    i18n_exception(); // Uncomment to test i18n for exceptions
-	    parse("\"Domino \\\\n Player\""); // Uncomment to test parser of a valid string
+	    parse("\"Domino \\n \\\"Player\""); // Uncomment to test parser of a valid string
 	    parse("\"Domino \n Player\""); // Uncomment to test parser of an invalid string
 	}
 }

@@ -121,7 +121,13 @@ public interface Stringifyable {
 	 * @return A Stringifyable version of the given object, <i>null</i> otherwise
 	 */
 	static Stringifyable cast( Object obj ){
-		if(obj==null) return null;
+		if(obj==null) return new Stringifyable() {    
+		    @Override
+		    public String stringify() {
+			return "null";
+		    }
+		};
+		
 		if( obj instanceof Stringifyable ) return (Stringifyable)obj;
 		Stringifier cast = stringifier(obj);
 		if( cast != null ) return new Stringifyable() { @Override public String stringify(){ return cast.stringify(obj); }	};

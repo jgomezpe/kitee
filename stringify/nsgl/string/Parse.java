@@ -55,7 +55,7 @@ public class Parse extends Regex{
 	/**
 	 * Creates a recovering method for strings
 	 */
-	public Parse() { super("\"([^\\\\\"\n\t\r]|\\\\[bfnrt0\"\\\\]|\\\\u[0-9A-F]{4})*\"", TAG); }
+	public Parse() { super("\" *([^\t\n\r\f\"\\\\]*(\\\\([\"ntr0\\\\]|u[0-9A-F]{4}))*)*\"", TAG); }
 
 	@Override
 	protected Object instance(CharacterSequence input, String matched) throws IOException{

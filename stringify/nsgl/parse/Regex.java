@@ -102,7 +102,7 @@ public abstract class Regex implements Parse{
 	 * @return
 	 */
 	public String match(CharSequence input){
-		Matcher matcher = pattern.matcher(input); 
+		Matcher matcher = pattern.matcher(input);
 		if( matcher.find() ) return matcher.group();
 		return null;
 	}
