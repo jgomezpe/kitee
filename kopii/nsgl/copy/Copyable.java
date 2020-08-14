@@ -103,7 +103,7 @@ public interface Copyable {
 			    }
 			};
 		}
-		if( c.isPrimitive() || obj instanceof Number || obj instanceof Character || obj instanceof String ) {
+		if( c.isPrimitive() || obj instanceof Number || obj instanceof Boolean || obj instanceof Character || obj instanceof String ) {
 		    return new Copyable() {
 		        @Override
 		        public Object copy() {
