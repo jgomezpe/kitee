@@ -72,6 +72,8 @@ public class Parse extends Regex{
 			default: return c; 
 		}
 	}
+	
+	public static int length;
 
 	/**
 	 * Obtains the characters processed by the Char recover method
@@ -80,32 +82,42 @@ public class Parse extends Regex{
 	 * @return Set of characters processed by the Char recover method
 	 * @throws IOException If the process finds an error in the process (bad formed escape character)
 	 */
-	public static char[] get( CharacterSequence input, int pos, boolean single ) throws IOException{
-		char c = input.charAt(pos);
+	public static char get( CharacterSequence input, String matched, int pos, boolean single ) throws IOException{
+		char c = matched.charAt(pos);
 		if(c=='\\'){
+			length = 2; 
 			pos++;
-			c = input.charAt(pos);
-			char ec = escape(c);
-			if( ec!=c ) return new char[]{ec, '2'};
-			if( c=='"' && !single ) return new char[]{'"', '2'};
-			if( c=='\'' && single ) return new char[]{'\'', '2'};
-			if( c=='\\' ) return new char[]{'\\', '2'};
-			if(c=='u'){
-				pos++;
-				String uc = input.subSequence(pos,pos+4).toString();
-				int k=Integer.parseInt(uc,16);
-				c = (char)k;
-				return new char[]{c,'6'};
+			c = matched.charAt(pos);
+			switch(c) {
+				case 'b': return '\b';
+				case 'f': return '\f';
+				case 'n': return '\n';
+				case 'r': return '\r';
+				case 't': return '\t';
+				case '0': return '\0';
+				case '\\': return '\\';
+				case '"': if(!single) return '"';
+				case '\'': if(single) return '\'';
+				case 'u':
+				    try {
+					pos++;
+					String uc = matched.subSequence(pos,pos+4).toString();
+					int k=Integer.parseInt(uc,16);
+					length = 6;
+					return (char)k;
+				    }catch(Exception e) {}
 			}
-			throw input.exception("No escape char", pos);
+			throw input.exception("·Invalid "+TAG+"· ", pos);
 		}
-		return new char[] {c,'1'};
+		length = 1;
+		return c;
 	}
 
 	@Override
-	protected Object instance(CharacterSequence input, String matched) throws IOException{
-		char[] c = get( input, 1, true );
-		return c[0];
+	public Object instance(CharacterSequence input, String matched) throws IOException{
+		if( matched.charAt(0) != '\'' ) throw input.exception("·Invalid "+TAG+"· ", 0);
+		if( matched.charAt(matched.length()-1) != '\'') throw input.exception("·Invalid "+TAG+"· ", matched.length()-1);
+		return get( input, matched, 1, true );
 	}
 	
 	public static void main( String[] args ) {

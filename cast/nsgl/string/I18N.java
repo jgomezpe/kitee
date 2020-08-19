@@ -17,7 +17,7 @@ public class I18N {
     public static void set( String dictionary ) throws IOException{
 	JSON json = new JSON(dictionary);
 	for( String key:json.keys() ) {
-	    String value = json.getString(key);
+	    String value = json.string(key);
 	    if( value != null ) I18N.dictionary.set(key, value);
 	}
     }

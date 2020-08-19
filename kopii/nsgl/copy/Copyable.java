@@ -86,7 +86,12 @@ public interface Copyable {
 	 * @return A cloneable version of the given object.
 	 */
 	static Copyable cast( Object obj ){
-		if(obj==null) return null;
+		if(obj==null) return new Copyable() {		    
+		    @Override
+		    public Object copy() {
+			return null;
+		    }
+		};
 		if( obj instanceof Copyable ) return (Copyable)obj;
 		Class<?> c = obj.getClass();
 		if( c.isArray() ) {

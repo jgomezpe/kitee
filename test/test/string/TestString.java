@@ -77,6 +77,6 @@ public class TestString {
 	    i18n(); // Uncomment to test demo Spanish dictionary for i18n 
 	    i18n_exception(); // Uncomment to test i18n for exceptions
 	    parse("\"Domino \\n \\\"Player\""); // Uncomment to test parser of a valid string
-	    parse("\"Domino \n Player\""); // Uncomment to test parser of an invalid string
+	    parse("\"Domino \\u Player\""); // Uncomment to test parser of an invalid string
 	}
 }

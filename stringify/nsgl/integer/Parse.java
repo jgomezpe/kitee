@@ -64,11 +64,8 @@ public class Parse extends Regex{
 	public Parse(){ this(true); }
 
 	@Override
-	protected Object instance(CharacterSequence input, String matched) throws IOException { 
-		try{
-			return Integer.parseInt(matched); 
-		}catch( NumberFormatException e ) {
-			throw input.exception("Invalid "+type, 0);
-		}
+	public Object instance(CharacterSequence input, String matched) throws IOException { 
+		try{ return Integer.parseInt(matched); }
+		catch( NumberFormatException e ){ throw input.exception("·Invalid "+TAG+"· ", 0);  }
 	}	
 }

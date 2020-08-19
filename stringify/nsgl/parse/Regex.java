@@ -63,6 +63,8 @@ public abstract class Regex implements Parse{
 	 */
 	protected Pattern pattern;
 	
+	protected int matchedLength=0;
+	
 	/**
 	 * Creates a Recovering method for objects that satisfy the given regular expression
 	 * @param regex Regular expression used for recovering the object
@@ -94,7 +96,9 @@ public abstract class Regex implements Parse{
 	 * @return An object from the given String
 	 * @throws IOException If the object could not be retrieved from the String
 	 */
-	protected abstract Object instance(CharacterSequence input, String matched) throws IOException;
+	public abstract Object instance(CharacterSequence input, String matched) throws IOException;
+	
+	public String matched_as() { return type(); }
 	
 	/**
 	 * Matches the regex expression with the String if possible
@@ -112,7 +116,8 @@ public abstract class Regex implements Parse{
 		String matched = match(input); 
 		if( matched != null ) {
 			Object obj =  instance(input, matched);
-			input.shift(matched.length());
+			matchedLength = matched.length();
+			input.shift(matchedLength);
 			return obj;
 		}
 		throw input.exception("·Invalid "+type+"·", 0);

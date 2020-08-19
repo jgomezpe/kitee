@@ -36,7 +36,7 @@
  * (E-mail: <A HREF="mailto:jgomezpe@unal.edu.co">jgomezpe@unal.edu.co</A> )
  * @version 1.0
  */
-package nsgl.string;
+package nsgl.number;
 
 import java.io.IOException;
 
@@ -44,30 +44,29 @@ import nsgl.character.CharacterSequence;
 import nsgl.parse.Regex;
 
 /**
- * <p>Title: StringRecover</p>
+ * <p>Title: RealRecover</p>
  *
- * <p>Description: Recovers (Load from a String) an String</p>
+ * <p>Description: Parse (Load from a String) a real number (Double)</p>
  *
  */
 public class Parse extends Regex{
-	public static final String TAG = "String";
-
+	public static final String TAG = "number";
+	
 	/**
-	 * Creates a recovering method for strings
+	 * Creates a recover method for real numbers  
+	 * @param signed If the real number is signed or not
 	 */
-	public Parse() { super("\"([^\t\n\r\f\"\\\\]*(\\\\[tnrfu\"\\\\])*)*\"", TAG); }
+	public Parse(boolean signed){ super((signed?"[-+]?":"")+"\\d+(\\.\\d+)?([eE][+-]?\\d+)?", TAG); }
+	
+	/**
+	 * Creates a recover method for signed real numbers
+	 */
+	public Parse(){ this(true); }
 
 	@Override
-	public Object instance(CharacterSequence input, String matched) throws IOException{
-		if( matched.charAt(0) != '"' ) throw input.exception("·Invalid "+TAG+"· ", 0);
-		if( matched.charAt(matched.length()-1) != '"') throw input.exception("·Invalid "+TAG+"· ", matched.length()-1);
-		StringBuilder sb = new StringBuilder();
-		int n = matched.length()-1;
-		int pos = 1;
-		while(pos<n) {
-			sb.append( nsgl.character.Parse.get(input, matched, pos, false) );
-			pos += nsgl.character.Parse.length;
-		}
-		return sb.toString();
-	}	
+	public Object instance(CharacterSequence input, String matched) throws IOException { 
+		try{ return Integer.parseInt(matched); }catch( NumberFormatException e ) {}		
+		try{ return Double.parseDouble(matched); }
+		catch( NumberFormatException e ){ throw input.exception("·Invalid "+TAG+"· ", 0); }		
+	}
 }

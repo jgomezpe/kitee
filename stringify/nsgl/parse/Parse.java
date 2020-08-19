@@ -50,6 +50,12 @@ import nsgl.character.CharacterSequence;
  */
 public interface Parse {
 	/**
+	 * Recovers the number of characters consumed by the Parse process
+	 * @return Number of of characters consumed by the Parse process
+	 */
+	String matched_as();
+	
+	/**
 	 * Recovers from a CharacterSequence an object
 	 * @param input CharSequence from which the object will be recovered
 	 * @return The recovered object
